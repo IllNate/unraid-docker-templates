@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Container>
-  <TemplateURL>https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/rutorrent.xml</TemplateURL>
-<Beta>False</Beta>
-<Category>Downloaders:</Category>
-<Date>2016-11-20</Date>
-  <Name>rutorrent</Name>
-  <Support>https://forums.unraid.net/topic/45596-support-linuxserverio-rutorrent/</Support>
+  <TemplateURL>https://raw.githubusercontent.com/IllNate/unraid-docker-templates/master/weewx.xml</TemplateURL>
+<Beta>True</Beta>
+<Category>Cloud:</Category>
+<Date>2020-09-29</Date>
+  <Name>weewx</Name>
+  <Support></Support>
   <Description>
   Popular torrent client with a webui for ease of use.
   [b][u][span style='color: #E80000;']Configuration[/span][/u][/b][br]
-  [b]/config[/b] Where rutorrent should store configuration files[br]
-  [b]/downloads[/b] Downloads folder[br]
+  [b]/config[/b] Where weewx should store configuration files[br]
+  [b]/data[/b] Database folder[br]
   </Description>
-  <Overview>Popular torrent client with a webui for ease of use.</Overview>
-  <Project>https://github.com/Novik/ruTorrent</Project>
-  <Registry>https://hub.docker.com/r/linuxserver/rutorrent/</Registry>
+  <Overview>Create a local database and web interface for you personal weather station data</Overview>
+  <Project>https://github.com/felddy/weewx-docker/</Project>
+  <Registry>https://hub.docker.com/r/felddy/weewx/</Registry>
   <Repository>linuxserver/rutorrent</Repository>
   <BindTime>true</BindTime>
   <Privileged>false</Privileged>
   <Environment>
     <Variable>
-      <Name>PUID</Name>
+      <Name>TIMEZONE</Name>
+      <Value>US/Western</Value>
+    </Variable>
+    <Variable>
+      <Name>WEEWX_UID</Name>
       <Value>99</Value>
     </Variable>
     <Variable>
-      <Name>PGID</Name>
+      <Name>WEEWX_GID</Name>
       <Value>100</Value>
     </Variable>
   </Environment>
@@ -32,7 +36,7 @@
     <Mode>bridge</Mode>
     <Publish>
       <Port>
-        <HostPort>80</HostPort>
+        <HostPort>8000</HostPort>
         <ContainerPort>80</ContainerPort>
         <Protocol>tcp</Protocol>
       </Port>
@@ -50,21 +54,13 @@
   </Networking>
   <Data>
     <Volume>
-      <HostDir></HostDir>
-      <ContainerDir>/config</ContainerDir>
-      <Mode>rw</Mode>
-    </Volume>
-    <Volume>
-      <HostDir></HostDir>
-      <ContainerDir>/downloads</ContainerDir>
+      <HostDir>/mnt/cache/appdata/config</HostDir>
+      <ContainerDir>/data</ContainerDir>
       <Mode>rw</Mode>
     </Volume>
   </Data>
   <Version></Version>
   <WebUI>http://[IP]:[PORT:80]/</WebUI>
-  <Icon>https://raw.githubusercontent.com/linuxserver/beta-templates/master/lsiodev/img/rutorrent-icon.png</Icon>
-<DonateText>Donations</DonateText>
-<DonateLink>https://www.linuxserver.io/donate</DonateLink>
-<DonateImg>https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/donate.png</DonateImg>
+  <Icon>http://weewx.com/weewx-logo-128x128.png</Icon>
 <BaseImage>lsiobase/alpine</BaseImage>
 </Container>
